@@ -221,10 +221,58 @@ def turn( a, b, c ):
 def buildTristrips( triangles ):
 
     count = 0
+    
+    adjTriangles = 1
 
-    # [YOUR CODE HERE]
-    #
-    # Increment 'count' every time you *start* a new triStrip.
+    def adjCheck (triang):
+        if (triang.nextTri == None and triang.prevTri == None): #if the next and previous pounters are None, then return true
+            return True
+        else:
+            return False
+    
+    adjTriangles = 1 #starts at the lowest number of adjacent triangles meaning the corner triangles and works its way in
+                      
+    while adjTriangles <  4: 
+        
+        for i in triangles:
+            if len(i.adjTris) <= adjTriangles: #skip if more than that many adjacent triangles
+                run = 1
+                while run:
+                    if adjCheck(i):  #check if next tri and prev tri have been set yet
+                        nextTrisChoices = []
+                        lowestAdj = 3 #max number of adjacents is 3
+
+                        for j in i.adjTris:
+                            if adjCheck(j):
+                                nextTrisChoices.append(j)
+                        if len(nextTrisChoices) == 0:
+                            flag = 0
+                            count = count+1
+                        for k in nextTrisChoices:
+                            numofAdj = len(k.adjTris) 
+                            if numofAdj <= lowestAdj:
+                                lowestAdj = numofAdj
+                                bestChoice = k
+                        i.nextTri = bestChoice
+                        i = bestChoice
+                    else:
+                        run = 0 
+
+        adjTriangles += 1
+                
+
+
+
+                        
+
+                
+                
+            
+        
+
+
+
+
 
     print( 'Generated %d tristrips' % count )
 
