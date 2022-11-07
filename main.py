@@ -220,15 +220,15 @@ def turn( a, b, c ):
 
 def buildTristrips( triangles ):
 
-    count = 0
-    
-    adjTriangles = 1
-
     def adjCheck (triang):
         if (triang.nextTri == None and triang.prevTri == None): #if the next and previous pounters are None, then return true
             return True
         else:
             return False
+
+    count = 0 #count is used for the print statment
+    
+    adjTriangles = 1 #number of adjacent triangles
     
     adjTriangles = 1 #starts at the lowest number of adjacent triangles meaning the corner triangles and works its way in
                       
@@ -238,18 +238,18 @@ def buildTristrips( triangles ):
             if len(i.adjTris) <= adjTriangles: #skip if more than that many adjacent triangles
                 run = 1  #switches to adjTriangles + 1 when there is no more options of next Triangles.
                 while run:
-                    if adjCheck(i):  #check if next tri and prev tri have been set yet
-                        bestChoice = None
-                        nextTrisChoices = []
-                        lowestAdj = 3 #max number of adjacents is 3
+                    bestChoice = None
+                    nextTrisChoices = []
+                    lowestAdj = 3 #max number of adjacents is 3
 
+                    if adjCheck(i):  #check if next tri and prev tri have been set yet
                         for j in i.adjTris:
                             if adjCheck(j):
                                 nextTrisChoices.append(j)
 
-                        if len(nextTrisChoices) == 0:
+                        if len(nextTrisChoices) == 0: #switches to adjTriangles + 1 when there is no more options of next Triangles.
                             run = 0
-                            count = count+1
+                            count = count+1 #iterate count
 
                         for k in nextTrisChoices:
                             numofAdj = len(k.adjTris) 
@@ -259,13 +259,14 @@ def buildTristrips( triangles ):
                         i.nextTri = bestChoice
                         i = bestChoice
                     else:
-                        run = 0 
+                        run = 0 #exit while loop
 
         adjTriangles += 1
                 
 
     print( 'Generated %d tristrips' % count )
 
+    
 
 # ================================================================
 # ================================================================
