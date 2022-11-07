@@ -236,18 +236,21 @@ def buildTristrips( triangles ):
         
         for i in triangles:
             if len(i.adjTris) <= adjTriangles: #skip if more than that many adjacent triangles
-                run = 1
+                run = 1  #switches to adjTriangles + 1 when there is no more options of next Triangles.
                 while run:
                     if adjCheck(i):  #check if next tri and prev tri have been set yet
+                        bestChoice = None
                         nextTrisChoices = []
                         lowestAdj = 3 #max number of adjacents is 3
 
                         for j in i.adjTris:
                             if adjCheck(j):
                                 nextTrisChoices.append(j)
+
                         if len(nextTrisChoices) == 0:
-                            flag = 0
+                            run = 0
                             count = count+1
+
                         for k in nextTrisChoices:
                             numofAdj = len(k.adjTris) 
                             if numofAdj <= lowestAdj:
@@ -260,19 +263,6 @@ def buildTristrips( triangles ):
 
         adjTriangles += 1
                 
-
-
-
-                        
-
-                
-                
-            
-        
-
-
-
-
 
     print( 'Generated %d tristrips' % count )
 
