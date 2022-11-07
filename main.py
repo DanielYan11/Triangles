@@ -7,7 +7,7 @@
 # You'll need Python 3 and must install these packages:
 #
 #   PyOpenGL, GLFW
-
+#   HI im dan 
 
 import sys, os, math
 
